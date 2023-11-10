@@ -1,0 +1,37 @@
+package seliniunbasics;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class amazonsearchbar {
+
+	public static void main(String[] args) throws InterruptedException {
+          WebDriver driver = new ChromeDriver();
+          driver.manage().window().maximize();
+          driver.get("https://www.amazon.in/");
+        
+         
+                   
+          
+          WebElement searchInput = driver.findElement(By.id("twotabsearchtextbox"));
+          searchInput.sendKeys("iPhone 13" + Keys.RETURN);
+
+          
+          WebElement searchResultsTitle = driver.findElement(By.className("a-text-bold"));
+          if (searchResultsTitle.getText().contains("results for")) {
+              System.out.println("Search results page is displayed. Automation successful!");
+          } else {
+              System.out.println("Search results page is not displayed. Automation failed!");
+              
+              Thread.sleep(7000);
+      		
+      		
+          }
+
+          
+          driver.quit();
+      }
+}
