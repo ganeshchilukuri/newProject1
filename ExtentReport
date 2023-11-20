@@ -1,0 +1,113 @@
+package com.app.TestNG.extentreports;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+
+import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+public class ExtentReport {
+
+	@Test
+	public void extentDemo2() throws IOException {
+
+		ExtentReports ex = new ExtentReports();
+		File file = new File("report2.html");
+
+		ExtentSparkReporter sparkreporter = new ExtentSparkReporter(file);
+		ex.attachReporter(sparkreporter);
+
+		ExtentTest test1 = ex.createTest("Test1");
+		test1.pass("Test Case passed");
+
+		ExtentTest test2 = ex.createTest("Test2");
+		test2.pass("Test case 2 is pass");
+
+		ExtentTest test3 = ex.createTest("Test3");
+		test3.log(Status.FAIL, "This tst has failed");
+
+		ExtentTest test4 = ex.createTest("Test4");
+		test4.skip("This test has skipped..");
+
+		ex.flush();
+		Desktop.getDesktop().browse(new File("report2.html").toURI());
+
+	}
+
+}
+
+package com.app.TestNG.extentreports;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+
+import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+public class SetUpCheck {
+
+	@Test
+	public void extentdemo() {
+
+		// create an object to initiate Extent report engine
+
+		ExtentReports ex = new ExtentReports();
+
+		// give the path of the folder in which extent report has to be created
+		// right click on project-->propetries-->go to resources on left-->copy the path
+		// of project
+
+//		D:\Java_Lectures\SL_SeleniumDemo_Workspace\ATE-Phase2-Selenium-TestNG
+
+		ExtentSparkReporter sparkreporter = new ExtentSparkReporter(
+				"D:\\Java_Lectures\\SL_SeleniumDemo_Workspace\\ATE-Phase2-Selenium-TestNG\\extentReport\\report.html");
+
+		ex.attachReporter(sparkreporter);
+
+		ex.flush();
+
+	}
+
+	@Test
+	public void extentDemo2() throws IOException {
+
+		ExtentReports ex = new ExtentReports();
+		File file = new File("report1.html");
+
+		ExtentSparkReporter sparkreporter = new ExtentSparkReporter(file);
+		ex.attachReporter(sparkreporter);
+		ex.flush();
+
+		Desktop.getDesktop().browse(new File("report1.html").toURI());
+
+	}
+
+}
+
+runner file
+<suite name="ExtentReports" verbose="1">
+	<test name="TestWiki">
+		<classes>
+			<class name = "com.app.TestNG.extentreports.TestClass"></class>
+			<methods>
+				<include name="method1"></include>
+			</methods>
+		</classes>
+	</test>
+	<test name="Testfacebook">
+		<classes>
+			<class name = "com.app.TestNG.extentreports.TestClass"></class>
+			<methods>
+				<include name="method2"></include>
+			</methods>
+		</classes>
+	</test>
+</suite>
